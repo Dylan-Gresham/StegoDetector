@@ -1,0 +1,50 @@
+[project]
+name = "stegodetector"
+version = "0.1.0"
+description = "Detect whether an image contains hidden data (steganography) or not, using a simple PyTorch classifier"
+authors = [{ name = "Dylan Gresham", email = "dylangresham.dev@gmail.com" }]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.1",
+    "pillow>=11.1.0",
+    "stegano>=0.9.7",
+    "torch>=2.6.0",
+    "torchvision>=0.21.0",
+    "tqdm>=4.67.1",
+]
+
+[project.optional-dependencies]
+cpu = [
+    "torch>=2.6.0",
+    "torchvision>=0.21.0",
+]
+
+gpu = [
+    "torch>=2.6.0",
+    "torchvision>=0.21.0",
+]
+
+[tool.uv]
+conflicts = [
+    [
+        { extra = "cpu" },
+        { extra = "gpu" },
+    ]
+]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-gpu", extra = "gpu"},
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-gpu"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true

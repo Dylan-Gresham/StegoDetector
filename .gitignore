@@ -172,3 +172,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Project specific
+data
+data/*
+
+uv.lock
+stego_log.csv
+sample_files.txt
