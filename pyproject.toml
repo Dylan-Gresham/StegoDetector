@@ -38,6 +38,10 @@ torch = [
   { index = "pytorch-cpu", extra = "cpu" },
   { index = "pytorch-gpu", extra = "gpu"},
 ]
+torchvision = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-gpu", extra = "gpu"},
+]
 
 [[tool.uv.index]]
 name = "pytorch-cpu"
