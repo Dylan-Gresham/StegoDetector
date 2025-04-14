@@ -9,7 +9,7 @@ from tqdm.auto import tqdm
 from stegodetector.dataset import StegoDataset
 from stegodetector.model import get_model
 
-SAVE_PATH = "model_ouput/stego_classifier.pt"
+SAVE_PATH = "model_output/stego_classifier.pt"
 
 transform = T.Compose([T.Resize((224, 224)), T.ToTensor()])
 train_data = StegoDataset("data/train", transform=transform)
