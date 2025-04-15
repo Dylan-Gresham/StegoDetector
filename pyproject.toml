@@ -6,8 +6,10 @@ authors = [{ name = "Dylan Gresham", email = "dylangresham.dev@gmail.com" }]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "jupyter>=1.1.1",
     "matplotlib>=3.10.1",
     "pillow>=11.1.0",
+    "seaborn>=0.13.2",
     "stegano>=0.9.7",
     "torch>=2.6.0",
     "torchvision>=0.21.0",
