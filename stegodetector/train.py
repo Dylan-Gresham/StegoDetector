@@ -12,20 +12,24 @@ from stegodetector.model import get_model
 SAVE_PATH = "model_output/stego_classifier.pt"
 
 def main():
+    """Trains a ResNet model for steganography detection."""
+    # Load data
     transform = T.Compose([T.Resize((224, 224)), T.ToTensor()])
     train_data = StegoDataset("data/train", transform=transform)
     train_loader = DataLoader(train_data, batch_size=16, shuffle=True)
 
+    # Set up the base model
     model = get_model()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
+    model.train()
 
+    # Define hyperparameters
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
     criterion = nn.CrossEntropyLoss()
 
+    # Training loop
     for epoch in range(5):
-        model.train()
-
         loss = None
         for imgs, labels in tqdm(train_loader):
             imgs, labels = imgs.to(device), labels.to(device)
@@ -39,6 +43,7 @@ def main():
         if loss is not None:
             print(f"Epoch {epoch + 1} | Loss: {loss.item():.4f}")
 
+    # Output the trained model
     os.makedirs(os.path.dirname(SAVE_PATH), exist_ok=True)
     torch.save(model.state_dict(), SAVE_PATH)
 

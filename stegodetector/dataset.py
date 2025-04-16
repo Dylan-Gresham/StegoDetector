@@ -7,7 +7,20 @@ from torch.utils.data import Dataset
 
 
 class StegoDataset(Dataset):
-    def __init__(self, root_dir, transform=None):
+    """Dataset class for our StegoDetector problem."""
+    def __init__(self, root_dir: str, transform=None):
+        """
+        Gathers all of the image paths and assigns binary labels to them. 0 = clean, 1 = stego.
+
+        # Parameters:
+
+        - `root_dir: str` The root directory of the dataset
+        - `transform` The transformations to apply to the images. Should come from `torchvision.transforms`.
+
+        Returns:
+
+        A `StegoDataset` instance.
+        """
         self.root_dir = Path(root_dir)
         self.transform = transform or transforms.ToTensor()
         self.image_paths: List[Path] = list(self.root_dir.rglob("*"))
@@ -26,7 +39,18 @@ class StegoDataset(Dataset):
             self.samples.append((path, label))
 
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int):
+        """
+        Gets the image and label associated with the requested index.
+
+        # Parameters:
+
+        - `index: int` The index to retrieve.
+
+        # Returns:
+
+        A tuple in which the first element is the transformed image and the second is the label.
+        """
         path, label = self.samples[index]
         image = Image.open(path).convert("RGB")
         if self.transform:
@@ -35,4 +59,5 @@ class StegoDataset(Dataset):
         return image, label
 
     def __len__(self):
+        """Returns the length of this dataset. Length = number of images."""
         return len(self.samples)
