@@ -28,6 +28,7 @@ if [ -d "$NESTED_DIR" ]; then
     rm -rf "$NESTED_DIR"
 fi
 
+# === Cleanup ===
 echo "Removing zip file..."
 rm -f $ZIP_FILE
 
