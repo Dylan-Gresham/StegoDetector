@@ -8,10 +8,10 @@ def generate_random_text(max_len=1000, characters=string.ascii_letters + string.
     """
     Helper method to randomly generate text.
     """
-    return ''.join(random.choice(characters) for _ in range(random.randint(1, max_len)))
+    return "".join(random.choice(characters) for _ in range(random.randint(1, max_len)))
 
 
-def sample_files(seed: int | None=None):
+def sample_files(seed: int | None = None):
     """
     Randomly samples 25% of the clean files.
 
@@ -52,21 +52,31 @@ def sample_files(seed: int | None=None):
                 print(f"[!] Skipping missing directory: {dir_path}")
                 continue
 
-            files = [f"{dir}/{entry}" for entry in os.listdir(dir_path) if os.path.isfile(f"{dir_path}/{entry}")]
-            num_files_to_sample = round(len(files) * 0.25)
+            files = [
+                f"{dir}/{entry}"
+                for entry in os.listdir(dir_path)
+                if os.path.isfile(f"{dir_path}/{entry}")
+            ]
+            num_files_to_sample = round(len(files) * 0.2)
 
             if files and num_files_to_sample > 0:
                 for sample in random.sample(files, num_files_to_sample):
                     f.write(sample + "," + generate_random_text() + "\n")
 
+
 def main():
-    # Parse CLI arguments
-    parser = argparse.ArgumentParser(description="Sample 20% of image files from each category in data/clean")
-    parser.add_argument("--seed", type=int, help="Optional seed for reproducible sampling")
+    parser = argparse.ArgumentParser(
+        description="Sample 20% of image files from each category in data/clean"
+    )
+    parser.add_argument(
+        "--seed", type=int, help="Optional seed for reproducible sampling"
+    )
+
     args = parser.parse_args()
 
     # Sample w/potential seed
     sample_files(seed=args.seed)
+
 
 if __name__ == "__main__":
     main()

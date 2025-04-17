@@ -11,6 +11,7 @@ from stegodetector.model import get_model
 
 SAVE_PATH = "model_output/stego_classifier.pt"
 
+
 def main():
     """Trains a ResNet model for steganography detection."""
     # Load data
@@ -48,6 +49,7 @@ def main():
     torch.save(model.state_dict(), SAVE_PATH)
 
     print(f"[✓] Model saved to {SAVE_PATH}")
+
 
 if __name__ == "__main__":
     main()

@@ -24,15 +24,22 @@ def gather_image_paths(base_dir: Path) -> List[Path]:
     - `base_dir: Path` The file path to the base directory of our data.
 
     # Returns:
-    
+
     A list of `Path`s.
     """
     if os.path.exists(base_dir) and os.path.isdir(base_dir):
-        return [p for p in base_dir.rglob("*") if p.is_file() and p.suffix.lower() in {".jpg", ".jpeg", ".png", ".bmp"}]
+        return [
+            p
+            for p in base_dir.rglob("*")
+            if p.is_file() and p.suffix.lower() in {".jpg", ".jpeg", ".png", ".bmp"}
+        ]
     else:
         raise FileNotFoundError(f"{base_dir} does not exist.")
 
-def split_data(paths: List[Path], ratios: Tuple[float, float]) -> Tuple[List[Path], List[Path]]:
+
+def split_data(
+    paths: List[Path], ratios: Tuple[float, float]
+) -> Tuple[List[Path], List[Path]]:
     """
     Splits the data into a train and test split.
 
@@ -56,7 +63,10 @@ def split_data(paths: List[Path], ratios: Tuple[float, float]) -> Tuple[List[Pat
 
     return paths[:train_end], paths[train_end:]
 
-def copy_files(file_list: List[Path], dest_dir: Path, label: str, base_dir: Path) -> None:
+
+def copy_files(
+    file_list: List[Path], dest_dir: Path, label: str, base_dir: Path
+) -> None:
     """
     Copies files to the destination directory.
 
@@ -79,6 +89,7 @@ def copy_files(file_list: List[Path], dest_dir: Path, label: str, base_dir: Path
         dest_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(path, dest_path)
 
+
 def prepare():
     """
     Wrapper method to split the data into the train/test split and then copy to
@@ -100,7 +111,10 @@ def prepare():
     print(f"[+] Found {len(stego_images)} stego images")
 
     splits = {}
-    for label, images, base in [("clean", clean_images, CLEAN_DIR), ("stego", stego_images, STEGO_DIR)]:
+    for label, images, base in [
+        ("clean", clean_images, CLEAN_DIR),
+        ("stego", stego_images, STEGO_DIR),
+    ]:
         train, test = split_data(images, RATIOS)
         splits[label] = {"train": train, "test": test}
         for split in SPLITS:
@@ -108,6 +122,7 @@ def prepare():
             copy_files(splits[label][split], OUT_DIR / split, label, base)
 
     print("[✓] Dataset preparation complete.")
+
 
 if __name__ == "__main__":
     prepare()

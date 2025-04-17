@@ -44,7 +44,6 @@ def evaluate(model: ResNet, dataloader: DataLoader, device: device):
             total_correct += (preds == labels).sum().item()
             total_samples += labels.size(0)
 
-
     avg_loss = total_loss / total_samples
     accuracy = total_correct / total_samples
 
@@ -58,14 +57,18 @@ def main():
     # Get the trained model from local files
     model = get_model()
     model.to(device)
-    model.load_state_dict(torch.load("model_output/stego_classifier.pt", map_location=device))
+    model.load_state_dict(
+        torch.load("model_output/stego_classifier.pt", map_location=device)
+    )
     model.eval()
 
     # Define the transformatinons to apply to the images
-    transform = transforms.Compose([
-        transforms.Resize((224, 224)),
-        transforms.ToTensor(),
-    ])
+    transform = transforms.Compose(
+        [
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+        ]
+    )
 
     print("[✓] Model loaded and ready for testing!")
 

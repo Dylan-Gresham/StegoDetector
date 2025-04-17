@@ -8,6 +8,7 @@ from torch.utils.data import Dataset
 
 class StegoDataset(Dataset):
     """Dataset class for our StegoDetector problem."""
+
     def __init__(self, root_dir: str, transform=None):
         """
         Gathers all of the image paths and assigns binary labels to them. 0 = clean, 1 = stego.
@@ -24,7 +25,11 @@ class StegoDataset(Dataset):
         self.root_dir = Path(root_dir)
         self.transform = transform or transforms.ToTensor()
         self.image_paths: List[Path] = list(self.root_dir.rglob("*"))
-        self.image_paths = [p for p in self.image_paths if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".bmp"}]
+        self.image_paths = [
+            p
+            for p in self.image_paths
+            if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".bmp"}
+        ]
 
         self.samples: List[Tuple[Path, int]] = []
         for path in self.image_paths:
@@ -37,7 +42,6 @@ class StegoDataset(Dataset):
                 raise ValueError(f"Could not determine label for path: {path}")
 
             self.samples.append((path, label))
-
 
     def __getitem__(self, index: int):
         """
