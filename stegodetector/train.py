@@ -26,16 +26,19 @@ def main():
     model.train()
 
     # Define hyperparameters
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
-    criterion = nn.CrossEntropyLoss()
+    # TODO: Define optimizer
+    optimizer = None
+    # TODO: Define loss function
+    criterion = None
 
     # Training loop
     for epoch in range(5):
         loss = None
         for imgs, labels in tqdm(train_loader):
             imgs, labels = imgs.to(device), labels.to(device)
-            preds = model(imgs)
-            loss = criterion(preds, labels)
+            # TODO: Get predictions
+
+            # TODO: Compute loss
 
             optimizer.zero_grad()
             loss.backward()
@@ -46,7 +49,8 @@ def main():
 
     # Output the trained model
     os.makedirs(os.path.dirname(SAVE_PATH), exist_ok=True)
-    torch.save(model.state_dict(), SAVE_PATH)
+
+    # TODO: Save it!
 
     print(f"[✓] Model saved to {SAVE_PATH}")
 

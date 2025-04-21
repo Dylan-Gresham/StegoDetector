@@ -26,7 +26,8 @@ def evaluate(model: ResNet, dataloader: DataLoader, device: device):
     the second is the accuracy.
     """
     model.eval()
-    criterion = nn.CrossEntropyLoss()
+    # TODO: Use the same loss function here as in train.py
+
     total_loss = 0.0
     total_correct = 0
     total_samples = 0
@@ -36,10 +37,13 @@ def evaluate(model: ResNet, dataloader: DataLoader, device: device):
             images = images.to(device)
             labels = labels.to(device)
 
-            outputs = model(images)
-            loss = criterion(outputs, labels)
+            # TODO: Generate outputs
+
+            # TODO: Compute loss
+
             total_loss += loss.item() * images.size(0)
 
+            # Track accuracy
             _, preds = torch.max(outputs, dim=1)
             total_correct += (preds == labels).sum().item()
             total_samples += labels.size(0)

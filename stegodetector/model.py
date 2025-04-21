@@ -15,6 +15,6 @@ def get_model() -> models.ResNet:
     A `ResNet` instance in which the weights are not pre-trained.
     """
     model = models.resnet18(weights=None)
-    model.fc = nn.Linear(model.fc.in_features, 2)
+    # TODO: Add a layer here!
 
     return model
