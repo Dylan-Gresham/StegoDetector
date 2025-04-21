@@ -15,7 +15,9 @@ that you utilize `uv` as well.
 ```bash
 # MacOS & Linux
 curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
+```powershell
 # Windows
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
